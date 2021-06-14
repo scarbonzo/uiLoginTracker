@@ -24,5 +24,7 @@ FROM nginx:latest
 # Copy the build output to replace the default nginx contents.
 COPY --from=build /usr/local/app/dist/uiLoginTracker /usr/share/nginx/html
 
+# Copy the nginx config file to replace the default nginx config to fix routing issues.
+COPY nginxconf.conf /etc/nginx/conf.d/default.conf
 # Expose port 80
 EXPOSE 80
