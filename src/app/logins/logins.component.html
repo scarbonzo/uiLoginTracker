@@ -1,0 +1,80 @@
+<div class="top-spacer">
+    <mat-expansion-panel hideToggle [expanded]="true" class="bg-light-blue mat-elevation-z8 ">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span class="title text-blue">Search Filters</span>
+          </mat-panel-title>
+          <mat-panel-description>
+            click the bar to expand/collapse the menu
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <form class="form">
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Username or machine..." name="search" [(ngModel)]="search">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <input matInput  name="start" [matDatepicker]="startPicker" [(ngModel)]="start" (dateChange)="changeEvent($event)" placeholder="Start Date..." required>
+                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <input matInput  name="end" [matDatepicker]="endPicker" [(ngModel)]="end" (dateChange)="changeEvent($event)" placeholder="End Date..." required>
+                <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                <mat-datepicker #endPicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Results..." name="results" type="number" [(ngModel)]="take">
+            </mat-form-field>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <mat-checkbox color="primary" class="" name="logons" [(ngModel)]="logons">Logons</mat-checkbox>
+                </div>
+                <div class="row">
+                    <mat-checkbox color="primary" class="" name="logoffs" [(ngModel)]="logoffs">Logoffs</mat-checkbox>
+                </div>
+                <div class="row">
+                    <mat-checkbox color="primary" class="" name="unlocks" [(ngModel)]="unlocks">Unlocks</mat-checkbox>
+                </div>
+                <div class="row">
+                    <mat-checkbox color="primary" class="" name="locks" [(ngModel)]="locks">Locks</mat-checkbox>
+                </div>
+            </div>
+            <br />
+            <button mat-raised-button color="primary" (click)="update()">Search</button>
+        </form>
+      </mat-expansion-panel>
+    
+      <table mat-table [dataSource]="events" class="mat-elevation-z8 radiused">
+        <ng-container matColumnDef="timestamp">
+            <th mat-header-cell *matHeaderCellDef> Timestamp </th>
+            <td mat-cell *matCellDef="let event"> {{ event.timestamp | date:'short' }} </td>
+        </ng-container>
+        <ng-container matColumnDef="machine">
+            <th mat-header-cell *matHeaderCellDef> Machine </th>
+            <td mat-cell *matCellDef="let event"> {{ event.machine }} </td>
+        </ng-container>
+        <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef> Username </th>
+            <td mat-cell *matCellDef="let event"> {{ event.username }} </td>
+        </ng-container>
+        <ng-container matColumnDef="eventType">
+            <th mat-header-cell *matHeaderCellDef> Event </th>
+            <td mat-cell *matCellDef="let event"> {{ event.loginType }} </td>
+        </ng-container>
+        <ng-container matColumnDef="gw">
+            <th mat-header-cell *matHeaderCellDef> Gateway </th>
+            <td mat-cell *matCellDef="let event"> {{ event.gateway }} </td>
+        </ng-container>
+        <ng-container matColumnDef="dc">
+            <th mat-header-cell *matHeaderCellDef> DC </th>
+            <td mat-cell *matCellDef="let event"> {{ event.domainController }} </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

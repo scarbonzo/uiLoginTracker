@@ -1,0 +1,23 @@
+<mat-toolbar color="primary" class="radiused mat-elevation-z8">
+    <mat-toolbar-row>
+        <span>Big Brother <span class="text-orange">2021</span></span>
+        <span class="menu-spacer"></span>
+        
+        <div fxShow.gt-sm fxHide.lt-md>
+            <a mat-button [routerLink]="'/logins'" routerLinkActive="text-yellow bg-outline" class="hidden-sm-down">Logins</a>
+            <a mat-button [routerLink]="'/dns'" routerLinkActive="text-yellow bg-outline" class="hidden-sm-down">DNS Queries</a>
+        </div>
+        <span class="fill-remaining-space"></span>
+        <span fxShow.gt-sm fxHide.lt-md>
+            <button mat-raised-button color="warn" (click)="sendEmail();">HELP</button>
+        </span>
+        <button mat-icon-button [matMenuTriggerFor]="appMenu" fxHide fxShow.lt-md>
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #appMenu="matMenu">
+            <button mat-menu-item [routerLink]="'/logins'">Logins</button>
+            <button mat-menu-item [routerLink]="'/dns'">DNS Queries</button>
+            <button mat-menu-item (click)="sendEmail();">Help</button>
+        </mat-menu>
+    </mat-toolbar-row>
+</mat-toolbar>
